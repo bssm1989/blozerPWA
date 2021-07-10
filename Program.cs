@@ -1,14 +1,17 @@
-using System;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using DnetIndexedDb;
+using FirstBlazorApp.Models;
+using Blazored.LocalStorage;
 
-namespace Sample
+namespace FirstBlazorApp
 {
     public class Program
     {
@@ -16,9 +19,9 @@ namespace Sample
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddIndexedDbDatabase<EmployeeContext>(o => { o.UseDatabase(new EmployeeOfflineDb()); });
+            builder.Services.AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
     }

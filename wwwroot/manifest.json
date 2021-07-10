@@ -1,6 +1,6 @@
 {
-  "name": "Sample",
-  "short_name": "Sample",
+  "name": "FirstBlazorApp",
+  "short_name": "FirstBlazorApp",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
